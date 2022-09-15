@@ -1,4 +1,5 @@
 import { WalletInterface } from './types'
+import { toStringRecursive } from './utils'
 
 export const connect = async () => {
   if (!window.martian) return Promise.reject('Martian wallet not installed.')
@@ -17,12 +18,13 @@ export const connect = async () => {
         return Promise.reject('Martian wallet not installed.')
       return window.martian.disconnect()
     },
-    signAndSubmitTransaction: async (...args) => {
+    signAndSubmitTransaction: async (payload, options) => {
       if (!window.martian || !window.martian.address)
         return Promise.reject('Martian wallet not installed.')
       const tx = await window.martian.generateTransaction(
         window.martian.address,
-        ...args,
+        { ...payload, arguments: payload.arguments.map(toStringRecursive) },
+        options,
       )
       return window.martian.signAndSubmitTransaction(tx)
     },
