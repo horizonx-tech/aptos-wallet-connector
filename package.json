@@ -1,11 +1,13 @@
 {
   "name": "@horizonx/aptos-wallet-connector",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "HorizonX",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "yarn clean && tsc",
     "clean": "rimraf dist"
