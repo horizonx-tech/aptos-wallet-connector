@@ -15,6 +15,9 @@ export const SUPPORTED_WALLETS = [
 
 export type WalletType = typeof SUPPORTED_WALLETS[number]
 
+export const isSupportedWalletType = (arg: any): arg is WalletType =>
+  SUPPORTED_WALLETS.includes(arg as any)
+
 export const connect = async (
   type: WalletType,
 ): Promise<WalletInterface<WalletType> | undefined> => {
