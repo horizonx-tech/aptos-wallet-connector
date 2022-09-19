@@ -17,6 +17,7 @@ export const connect = async () => {
       return address
     },
     network: () => Promise.reject('Not Supported.'),
+    chainId: () => Promise.reject('Not Supported.'),
     disconnect: async () => {
       if (!window.fewcha) return Promise.reject('Fewcha wallet not installed.')
       return window.fewcha.disconnect()

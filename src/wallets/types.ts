@@ -6,6 +6,7 @@ export type WalletInterface<T = string> = {
   type: T
   account: () => Promise<string | undefined>
   network: () => Promise<string>
+  chainId: () => Promise<number>
   disconnect: () => Promise<any>
   signAndSubmitTransaction: (
     payload: Types.EntryFunctionPayload,
@@ -15,4 +16,5 @@ export type WalletInterface<T = string> = {
     listener: (address: Types.Address | undefined) => void,
   ) => VoidFunction | void
   onNetworkChanged?: (listener: (network: string) => void) => void
+  onChainChanged?: (listener: (chain: number) => void) => void
 }

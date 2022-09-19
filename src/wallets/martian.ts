@@ -6,6 +6,10 @@ export const connect = async () => {
 
   const martianRes = await window.martian.connect()
   if (!martianRes) return
+  const chainId = async () => {
+    if (!window.martian) return Promise.reject('Martian wallet not installed.')
+    return (await window.martian.getChainId()).chainId
+  }
   const wallet: WalletInterface<'martian'> = {
     type: 'martian',
     account: async () => {
@@ -18,6 +22,7 @@ export const connect = async () => {
         return Promise.reject('Martian wallet not installed.')
       return window.martian.network()
     },
+    chainId,
     disconnect: async () => {
       if (!window.martian)
         return Promise.reject('Martian wallet not installed.')
@@ -40,6 +45,10 @@ export const connect = async () => {
     onNetworkChanged: (listener) => {
       if (!window.martian) throw new Error('Martian wallet not installed.')
       return window.martian.onNetworkChange(listener)
+    },
+    onChainChanged: (listener) => {
+      if (!window.martian) throw new Error('Martian wallet not installed.')
+      return window.martian.onNetworkChange(() => chainId().then(listener))
     },
   }
   return wallet

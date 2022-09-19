@@ -7,6 +7,10 @@ export const connect = async () => {
   await window.pontem.connect()
   const pontemAccount = await window.pontem.account()
   if (!pontemAccount) return
+  const chainId = async () => {
+    if (!window.pontem) return Promise.reject('Pontem wallet not installed.')
+    return +(await window.pontem.chainId())
+  }
   const wallet: WalletInterface<'pontem'> = {
     type: 'pontem',
     account: async () => {
@@ -17,6 +21,7 @@ export const connect = async () => {
       if (!window.pontem) return Promise.reject('Pontem wallet not installed.')
       return (await window.pontem.network()).name
     },
+    chainId,
     disconnect: async () => {
       if (!window.pontem) return Promise.reject('Pontem wallet not installed.')
       return window.pontem.disconnect()
@@ -35,6 +40,10 @@ export const connect = async () => {
     onNetworkChanged: (listener) => {
       if (!window.pontem) throw new Error('Pontem wallet not installed.')
       return window.pontem.onChangeNetwork(listener)
+    },
+    onChainChanged: (listener) => {
+      if (!window.pontem) throw new Error('Pontem wallet not installed.')
+      return window.pontem.onChangeNetwork(() => chainId().then(listener))
     },
   }
   return wallet
