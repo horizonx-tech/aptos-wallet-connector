@@ -13,7 +13,14 @@ export const connect = async () => {
       if (!window.pontem) return Promise.reject('Pontem wallet not installed.')
       return window.pontem.account()
     },
-    disconnect: async () => Promise.reject('Not supported'),
+    network: async () => {
+      if (!window.pontem) return Promise.reject('Pontem wallet not installed.')
+      return (await window.pontem.network()).name
+    },
+    disconnect: async () => {
+      if (!window.pontem) return Promise.reject('Pontem wallet not installed.')
+      return window.pontem.disconnect()
+    },
     signAndSubmitTransaction: async (payload, options) => {
       if (!window.pontem) return Promise.reject('Pontem wallet not installed.')
       return window.pontem.signAndSubmit(
@@ -24,6 +31,10 @@ export const connect = async () => {
     onAccountChanged: (listener) => {
       if (!window.pontem) throw new Error('Pontem wallet not installed.')
       return window.pontem.onChangeAccount(listener)
+    },
+    onNetworkChanged: (listener) => {
+      if (!window.pontem) throw new Error('Pontem wallet not installed.')
+      return window.pontem.onChangeNetwork(listener)
     },
   }
   return wallet

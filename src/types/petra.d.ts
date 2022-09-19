@@ -14,9 +14,13 @@ interface PetraWalletProvider {
     options?: Types.SubmitTransactionRequest,
   ) => Promise<Types.HashValue>
   disconnect: () => Promise<{}>
+  onAccountChange: (listener: (params: string) => void) => void
+  onDisconnect: (listener: VoidFunction) => void
+  onNetworkChange: (listener: (params: Account | {}) => void) => void
   on: {
-    (event: 'networkChanged', listener: (params: string) => void): void
     (event: 'accountChanged', listener: (params: Account | {}) => void): void
+    (event: 'disconnect', listener: VoidFunction): void
+    (event: 'networkChanged', listener: (params: string) => void): void
   }
 }
 

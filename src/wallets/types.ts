@@ -5,6 +5,7 @@ export type WalletConnector = <T>() => Promise<WalletInterface<T> | undefined>
 export type WalletInterface<T = string> = {
   type: T
   account: () => Promise<string | undefined>
+  network: () => Promise<string>
   disconnect: () => Promise<any>
   signAndSubmitTransaction: (
     payload: Types.EntryFunctionPayload,

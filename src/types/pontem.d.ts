@@ -2,7 +2,14 @@ import { Types } from 'aptos'
 
 interface PontemWalletProvider {
   connect: () => Promise<PontemWalletProvider>
+  disconnect: () => Promise<void>
   account: () => Promise<Types.Address>
+  network: () => Promise<{
+    api: string
+    chainId: string
+    name: string
+  }>
+  chainId: () => Promise<string>
   signAndSubmit: (
     payload: Types.EntryFunctionPayload,
     options?: Types.SubmitTransactionRequest,
@@ -10,6 +17,7 @@ interface PontemWalletProvider {
   onChangeAccount: (
     listner: (address: string | undefined) => void,
   ) => VoidFunction
+  onChangeNetwork: (listner: (network: string) => void) => VoidFunction
 }
 
 interface TransactionResponse {

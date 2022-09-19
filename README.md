@@ -7,6 +7,7 @@ Provides a common interface for aptos wallets
 | Function                 | Description                                         | Arguments                                                                   |
 | ------------------------ | --------------------------------------------------- | --------------------------------------------------------------------------- |
 | account                  | returns current account                             | -                                                                           |
+| network                  | returns current network name                        | -                                                                           |
 | disconnect               | disconnect wallet                                   | -                                                                           |
 | signAndSubmitTransaction | call connected wallet to sign and submit transction | `payload`: Transaction Payload<br> (optional) `options`: TransactionOptions |
 | onAccountChanged         | add listener callback on account changed            | `listener`: (address: string \| undefined) => void                          |
@@ -41,9 +42,10 @@ See [code example](https://github.com/horizonx-tech/aptos-module-explorer/blob/m
 
 |                          | [Petra](https://petra.app/) | [Fewcha](https://fewcha.app/) | [Martian](https://martianwallet.xyz/) | [Pontem](https://pontem.network/) |
 | ------------------------ | --------------------------- | ----------------------------- | ------------------------------------- | --------------------------------- |
-| version                  | 0.1.8                       | 0.4.2                         | 0.1.14                                | 1.4.0                             |
+| version                  | 0.1.12                      | 0.4.2                         | 0.2.2                                 | 1.6.1                             |
 | account                  | :white_check_mark:          | :white_check_mark:            | :white_check_mark:                    | :white_check_mark:                |
-| disconnect               | :white_check_mark:          | :white_check_mark:            | :white_check_mark:                    | :heavy_minus_sign:                |
+| network                  | :white_check_mark:          | :heavy_minus_sign:            | :white_check_mark:                    | :white_check_mark:                |
+| disconnect               | :white_check_mark:          | :white_check_mark:            | :white_check_mark:                    | :white_check_mark:                |
 | signAndSubmitTransaction | :white_check_mark:          | :white_check_mark:            | :white_check_mark:                    | :white_check_mark:                |
-| onAccountChanged         | :white_check_mark:          | :heavy_minus_sign:            | :heavy_minus_sign:                    | :white_check_mark:                |
-| onNetworkChanged         | :white_check_mark:          | :heavy_minus_sign:            | :heavy_minus_sign:                    | :heavy_minus_sign:                |
+| onAccountChanged         | :white_check_mark:          | :heavy_minus_sign:            | :white_check_mark:                    | :white_check_mark:                |
+| onNetworkChanged         | :white_check_mark:          | :heavy_minus_sign:            | :white_check_mark:                    | :white_check_mark:                |

@@ -8,6 +8,7 @@ interface MartianWalletProvider {
     address: Types.Address
     publicKey: Types.HexEncodedBytes
   }>
+  network: () => Promise<string>
   connect: () => Promise<{
     address: Types.Address
     id: number
@@ -71,6 +72,8 @@ interface MartianWalletProvider {
     signedTransaction: SignedTransaction,
     options?: Types.SubmitTransactionRequest,
   ) => Promise<Types.HashValue>
+  onAccountChange: (listner: (address: string) => void) => void
+  onNetworkChange: (listner: (name: string) => void) => void
 }
 
 type SignGenericTransactionResponse = {
