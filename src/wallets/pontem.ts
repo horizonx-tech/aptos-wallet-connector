@@ -2,7 +2,7 @@ import { WalletInterface } from './types'
 import { toStringRecursive } from './utils'
 
 export const connect = async () => {
-  if (!window.fewcha) return Promise.reject('Pontem wallet not installed.')
+  if (!window.pontem) return Promise.reject('Pontem wallet not installed.')
 
   await window.pontem.connect()
   const pontemAccount = await window.pontem.account()
