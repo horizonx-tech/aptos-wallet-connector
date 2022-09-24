@@ -15,7 +15,6 @@ Provides a common interface for aptos wallets
 | onNetworkChanged         | add listener callback on network changed            | `listener`: (network: string) => void                                       |
 | onChainChanged           | add listener callback on chain changed              | `listener`: (chainId: number) => void                                       |
 
-
 ## Installation
 
 ```
@@ -28,17 +27,28 @@ or
 npm install @horizonx/aptos-wallet-connector
 ```
 
-
 ## How to Use
 
 ```typescript
 import { connect, WalletInterface, WalletType } from 'aptos-wallet-connector'
 
 const type: WalletType = 'aptos' // 'aptos'(petra) | 'fewcha' | 'martian' | 'pontem'
-const walletClient: WalletInterface = await connect(type) //
+const walletClient: WalletInterface = await connect(type)
 ```
 
 See [code example](https://github.com/horizonx-tech/aptos-module-explorer/blob/main/src/hooks/useWallet.tsx).
+
+## Features
+
+| Function                | Description                                        | Arguments           |
+| ----------------------- | -------------------------------------------------- | ------------------- |
+| connect                 | connect a wallet                                   | `type`: Wallet Type |
+| isSupportedWalletType   | returns passed arg is supported wallet type or not | `arg`: any          |
+| lastConnectedWalletType | returns last connected wallet type                 | -                   |
+
+| Constant          | Description                         | type         |
+| ----------------- | ----------------------------------- | ------------ |
+| SUPPORTED_WALLETS | array of supported wallet type strs | WalletType[] |
 
 ## Supported Wallets
 
