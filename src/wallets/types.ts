@@ -4,14 +4,14 @@ export type WalletConnector = <T>() => Promise<WalletInterface<T> | undefined>
 
 export type WalletInterface<T = string> = {
   type: T
-  account: () => Promise<string | undefined>
+  account: () => Promise<Types.Address | undefined>
   network: () => Promise<string>
   chainId: () => Promise<number>
   disconnect: () => Promise<any>
   signAndSubmitTransaction: (
     payload: Types.EntryFunctionPayload,
     options?: Types.SubmitTransactionRequest,
-  ) => Promise<string>
+  ) => Promise<Types.HashValue>
   onAccountChanged?: (
     listener: (address: Types.Address | undefined) => void,
   ) => VoidFunction | void
