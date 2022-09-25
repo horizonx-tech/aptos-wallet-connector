@@ -28,7 +28,8 @@ export const connect = async () => {
         { ...payload, arguments: payload.arguments.map(toStringRecursive) },
         options,
       )
-      return window.fewcha.signAndSubmitTransaction(data)
+      const res = await window.fewcha.signAndSubmitTransaction(data)
+      return res.data
     },
   }
   return wallet

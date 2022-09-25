@@ -11,7 +11,7 @@ export type WalletInterface<T = string> = {
   signAndSubmitTransaction: (
     payload: Types.EntryFunctionPayload,
     options?: Types.SubmitTransactionRequest,
-  ) => Promise<any>
+  ) => Promise<string>
   onAccountChanged?: (
     listener: (address: Types.Address | undefined) => void,
   ) => VoidFunction | void

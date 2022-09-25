@@ -28,10 +28,12 @@ export const connect = async () => {
     },
     signAndSubmitTransaction: async (payload, options) => {
       if (!window.pontem) return Promise.reject('Pontem wallet not installed.')
-      return window.pontem.signAndSubmit(
+      const res = await window.pontem.signAndSubmit(
         { ...payload, arguments: payload.arguments.map(toStringRecursive) },
         options,
       )
+      if (!res.success) return Promise.reject('Transaction failed.')
+      return res.result.hash
     },
     onAccountChanged: (listener) => {
       if (!window.pontem) throw new Error('Pontem wallet not installed.')
