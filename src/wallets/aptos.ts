@@ -23,10 +23,11 @@ export const connect = async () => {
     },
     signAndSubmitTransaction: async (payload) => {
       if (!window.aptos) return Promise.reject('Petra wallet not installed')
-      return window.aptos.signAndSubmitTransaction({
+      const tx = await window.aptos.signAndSubmitTransaction({
         ...payload,
         arguments: payload.arguments.map(toStringRecursive),
       })
+      return tx.hash
     },
     onAccountChanged: (listener) => {
       if (!window.aptos) throw new Error('Petra wallet not installed.')

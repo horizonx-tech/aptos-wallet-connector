@@ -12,7 +12,7 @@ interface PetraWalletProvider {
   signAndSubmitTransaction: (
     transaction: Types.EntryFunctionPayload,
     options?: Types.SubmitTransactionRequest,
-  ) => Promise<Types.HashValue>
+  ) => Promise<Types.PendingTransaction>
   disconnect: () => Promise<{}>
   onAccountChange: (listener: (params: string) => void) => void
   onDisconnect: (listener: VoidFunction) => void
