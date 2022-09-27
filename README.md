@@ -54,10 +54,10 @@ See [code example](https://github.com/horizonx-tech/aptos-module-explorer/blob/m
 
 |                          | [Petra](https://petra.app/) | [Fewcha](https://fewcha.app/) | [Martian](https://martianwallet.xyz/) | [Pontem](https://pontem.network/) |
 | ------------------------ | --------------------------- | ----------------------------- | ------------------------------------- | --------------------------------- |
-| version                  | 0.1.12                      | 0.4.2                         | 0.2.2                                 | 1.6.1                             |
+| version                  | 0.1.14                      | 0.4.3                         | 0.2.4                                 | 1.7.0                             |
 | account                  | :white_check_mark:          | :white_check_mark:            | :white_check_mark:                    | :white_check_mark:                |
-| network                  | :white_check_mark:          | :heavy_minus_sign:            | :white_check_mark:                    | :white_check_mark:                |
-| chainId                  | :heavy_minus_sign:          | :heavy_minus_sign:            | :white_check_mark:                    | :white_check_mark:                |
+| network                  | :white_check_mark:          | :white_check_mark:            | :white_check_mark:                    | :white_check_mark:                |
+| chainId                  | :heavy_minus_sign:          | :white_check_mark:            | :white_check_mark:                    | :white_check_mark:                |
 | disconnect               | :white_check_mark:          | :white_check_mark:            | :white_check_mark:                    | :white_check_mark:                |
 | signAndSubmitTransaction | :white_check_mark:          | :white_check_mark:            | :white_check_mark:                    | :white_check_mark:                |
 | onAccountChanged         | :white_check_mark:          | :heavy_minus_sign:            | :white_check_mark:                    | :white_check_mark:                |
