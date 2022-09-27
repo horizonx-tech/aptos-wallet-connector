@@ -16,8 +16,16 @@ export const connect = async () => {
       } = await window.fewcha.account()
       return address
     },
-    network: () => Promise.reject('Not Supported.'),
-    chainId: () => Promise.reject('Not Supported.'),
+    network: async () => {
+      if (!window.fewcha) return Promise.reject('Fewcha wallet not installed.')
+      const res = await window.fewcha.getNetwork()
+      return res.data
+    },
+    chainId: async () => {
+      if (!window.fewcha) return Promise.reject('Fewcha wallet not installed.')
+      const res = await window.fewcha.sdk.getChainId()
+      return res.data
+    },
     disconnect: async () => {
       if (!window.fewcha) return Promise.reject('Fewcha wallet not installed.')
       return window.fewcha.disconnect()
