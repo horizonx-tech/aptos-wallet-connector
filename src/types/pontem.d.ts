@@ -10,6 +10,7 @@ interface PontemWalletProvider {
     name: string
   }>
   chainId: () => Promise<string>
+  publicKey: () => Promise<string>
   isConnected: () => Promise<boolean>
   signAndSubmit: (
     payload: Types.EntryFunctionPayload,
@@ -18,7 +19,11 @@ interface PontemWalletProvider {
   onChangeAccount: (
     listner: (address: string | undefined) => void,
   ) => VoidFunction
+  onAccountChange: (
+    listner: (address: string | undefined) => void,
+  ) => VoidFunction
   onChangeNetwork: (listner: (network: string) => void) => VoidFunction
+  onNetworkChange: (listner: (network: string) => void) => VoidFunction
 }
 
 interface TransactionResponse {
