@@ -2,55 +2,56 @@ import { WalletInterface } from './types'
 import { toStringRecursive } from './utils'
 
 export const connect = async () => {
-  if (!window.pontem) return Promise.reject('Pontem wallet not installed.')
-
-  await window.pontem.connect()
+  if (!window.pontem) return Promise.reject(error)
   const pontemAccount = await window.pontem.account()
   if (!pontemAccount) return
-  const chainId = async () => {
-    if (!window.pontem) return Promise.reject('Pontem wallet not installed.')
-    return +(await window.pontem.chainId())
-  }
-  const wallet: WalletInterface<'pontem'> = {
-    type: 'pontem',
-    account: async () => {
-      if (!window.pontem) return Promise.reject('Pontem wallet not installed.')
-      return window.pontem.account()
-    },
-    network: async () => {
-      if (!window.pontem) return Promise.reject('Pontem wallet not installed.')
-      return (await window.pontem.network()).name
-    },
-    chainId,
-    isConnected: () => {
-      if (!window.pontem) return Promise.reject(error)
-      return window.pontem.isConnected()
-    },
-    disconnect: async () => {
-      if (!window.pontem) return Promise.reject('Pontem wallet not installed.')
-      return window.pontem.disconnect()
-    },
-    signAndSubmitTransaction: async (payload, options) => {
-      if (!window.pontem) return Promise.reject('Pontem wallet not installed.')
-      const res = await window.pontem.signAndSubmit(
-        { ...payload, arguments: payload.arguments.map(toStringRecursive) },
-        options,
-      )
-      if (!res.success) return Promise.reject('Transaction failed.')
-      return res.result.hash
-    },
-    onAccountChanged: (listener) => {
-      if (!window.pontem) throw new Error('Pontem wallet not installed.')
-      return window.pontem.onChangeAccount(listener)
-    },
-    onNetworkChanged: (listener) => {
-      if (!window.pontem) throw new Error('Pontem wallet not installed.')
-      return window.pontem.onChangeNetwork(listener)
-    },
-    onChainChanged: (listener) => {
-      if (!window.pontem) throw new Error('Pontem wallet not installed.')
-      return window.pontem.onChangeNetwork(() => chainId().then(listener))
-    },
-  }
   return wallet
 }
+
+const chainId = async () => {
+  if (!window.pontem) return Promise.reject(error)
+  return +(await window.pontem.chainId())
+}
+const wallet: WalletInterface<'pontem'> = {
+  type: 'pontem',
+  account: async () => {
+    if (!window.pontem) return Promise.reject(error)
+    return window.pontem.account()
+  },
+  network: async () => {
+    if (!window.pontem) return Promise.reject(error)
+    return (await window.pontem.network()).name
+  },
+  chainId,
+  isConnected: () => {
+    if (!window.pontem) return Promise.reject(error)
+    return window.pontem.isConnected()
+  },
+  disconnect: async () => {
+    if (!window.pontem) return Promise.reject(error)
+    return window.pontem.disconnect()
+  },
+  signAndSubmitTransaction: async (payload, options) => {
+    if (!window.pontem) return Promise.reject(error)
+    const res = await window.pontem.signAndSubmit(
+      { ...payload, arguments: payload.arguments.map(toStringRecursive) },
+      options,
+    )
+    if (!res.success) return Promise.reject('Transaction failed.')
+    return res.result.hash
+  },
+  onAccountChanged: (listener) => {
+    if (!window.pontem) throw new Error(error)
+    return window.pontem.onChangeAccount(listener)
+  },
+  onNetworkChanged: (listener) => {
+    if (!window.pontem) throw new Error(error)
+    return window.pontem.onChangeNetwork(listener)
+  },
+  onChainChanged: (listener) => {
+    if (!window.pontem) throw new Error(error)
+    return window.pontem.onChangeNetwork(() => chainId().then(listener))
+  },
+}
+
+const error = 'Pontem wallet not installed'
