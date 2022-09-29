@@ -37,7 +37,6 @@ const wallet: WalletInterface<'pontem'> = {
       { ...payload, arguments: payload.arguments.map(toStringRecursive) },
       options,
     )
-    if (!res.success) return Promise.reject('Transaction failed.')
     return res.result.hash
   },
   onAccountChanged: (listener) => {
