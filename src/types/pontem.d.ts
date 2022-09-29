@@ -12,7 +12,7 @@ interface PontemWalletProvider {
   chainId: () => Promise<string>
   signAndSubmit: (
     payload: Types.EntryFunctionPayload,
-    options?: Types.SubmitTransactionRequest,
+    options?: Partial<Types.SubmitTransactionRequest>,
   ) => Promise<TransactionResponse>
   onChangeAccount: (
     listner: (address: string | undefined) => void,

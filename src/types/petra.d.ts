@@ -11,7 +11,7 @@ interface PetraWalletProvider {
   ) => Promise<SignTransactionResponse>
   signAndSubmitTransaction: (
     transaction: Types.EntryFunctionPayload,
-    options?: Types.SubmitTransactionRequest,
+    options?: Partial<Types.SubmitTransactionRequest>,
   ) => Promise<Types.PendingTransaction>
   disconnect: () => Promise<{}>
   onAccountChange: (listener: (params: string) => void) => void

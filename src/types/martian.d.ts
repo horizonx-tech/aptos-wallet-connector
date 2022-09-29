@@ -40,7 +40,7 @@ interface MartianWalletProvider {
   generateTransaction: (
     sender: Types.Address,
     payload: Types.EntryFunctionPayload,
-    options?: Types.SubmitTransactionRequest,
+    options?: Partial<Types.SubmitTransactionRequest>,
   ) => Promise<Uint8Array>
   getAccount: (address: Types.Address) => Promise<Types.AccountData>
   getAccountResources: (
@@ -61,7 +61,7 @@ interface MartianWalletProvider {
   isConnected: () => Promise<boolean>
   signAndSubmitTransaction: (
     transaction: Transction,
-    options?: Types.SubmitTransactionRequest,
+    options?: Partial<Types.SubmitTransactionRequest>,
   ) => Promise<Types.HashValue>
   signGenericTransaction: (
     arguments: GenericTransactionArgument,
@@ -70,7 +70,7 @@ interface MartianWalletProvider {
   signTransaction: (transaction: Transction) => Promise<Uint8Array>
   submitTransaction: (
     signedTransaction: SignedTransaction,
-    options?: Types.SubmitTransactionRequest,
+    options?: Partial<Types.SubmitTransactionRequest>,
   ) => Promise<Types.HashValue>
   onAccountChange: (listner: (address: string) => void) => void
   onNetworkChange: (listner: (name: string) => void) => void
