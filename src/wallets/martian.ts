@@ -23,6 +23,10 @@ export const connect = async () => {
       return window.martian.network()
     },
     chainId,
+    isConnected: () => {
+      if (!window.martian) return Promise.reject(error)
+      return window.martian.isConnected()
+    },
     disconnect: async () => {
       if (!window.martian)
         return Promise.reject('Martian wallet not installed.')

@@ -17,6 +17,10 @@ export const connect = async () => {
       return window.aptos.network()
     },
     chainId: () => Promise.reject('Not Supported.'),
+    isConnected: () => {
+      if (!window.aptos) return Promise.reject(error)
+      return window.aptos.isConnected()
+    },
     disconnect: async () => {
       if (!window.aptos) return Promise.reject('Petra wallet not installed')
       return window.aptos.disconnect()

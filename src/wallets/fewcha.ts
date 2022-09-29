@@ -26,6 +26,11 @@ export const connect = async () => {
       const res = await window.fewcha.sdk.getChainId()
       return res.data
     },
+    isConnected: async () => {
+      if (!window.fewcha) return Promise.reject(error)
+      const res = await window.fewcha.isConnected()
+      return !!res.data
+    },
     disconnect: async () => {
       if (!window.fewcha) return Promise.reject('Fewcha wallet not installed.')
       return window.fewcha.disconnect()

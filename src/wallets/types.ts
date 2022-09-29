@@ -7,6 +7,7 @@ export type WalletInterface<T = string> = {
   account: () => Promise<Types.Address | undefined>
   network: () => Promise<string>
   chainId: () => Promise<number>
+  isConnected: () => Promise<boolean>
   disconnect: () => Promise<any>
   signAndSubmitTransaction: (
     payload: Types.EntryFunctionPayload,

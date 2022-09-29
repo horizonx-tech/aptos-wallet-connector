@@ -22,6 +22,10 @@ export const connect = async () => {
       return (await window.pontem.network()).name
     },
     chainId,
+    isConnected: () => {
+      if (!window.pontem) return Promise.reject(error)
+      return window.pontem.isConnected()
+    },
     disconnect: async () => {
       if (!window.pontem) return Promise.reject('Pontem wallet not installed.')
       return window.pontem.disconnect()

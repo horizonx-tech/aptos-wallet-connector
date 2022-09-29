@@ -10,6 +10,7 @@ interface PontemWalletProvider {
     name: string
   }>
   chainId: () => Promise<string>
+  isConnected: () => Promise<boolean>
   signAndSubmit: (
     payload: Types.EntryFunctionPayload,
     options?: Partial<Types.SubmitTransactionRequest>,
