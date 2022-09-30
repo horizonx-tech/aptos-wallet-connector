@@ -1,3 +1,4 @@
+import { ERRORS } from 'src/utils/errors'
 import { WalletInterface } from './types'
 import { toStringRecursive } from './utils'
 
@@ -8,54 +9,63 @@ export const connect = async () => {
 }
 
 const chainId = async () => {
-  if (!window.martian) return Promise.reject(error)
-  return (await window.martian.getChainId()).chainId
+  if (!window.martian) return Promise.reject(ERRORS.NOT_INSTALLED)
+  const res = await window.martian.getChainId().catch(handleReject)
+  return res.chainId
 }
 
 const wallet: WalletInterface<'martian'> = {
   type: 'martian',
   connect: async () => {
-    if (!window.martian) return Promise.reject(error)
-    return (await window.martian.connect()).address
+    if (!window.martian) return Promise.reject(ERRORS.NOT_INSTALLED)
+    const res = await window.martian.connect().catch(handleReject)
+    return res.address
   },
   account: async () => {
-    if (!window.martian) return Promise.reject(error)
-    return (await window.martian.account()).address
+    if (!window.martian) return Promise.reject(ERRORS.NOT_INSTALLED)
+    const res = await window.martian.account().catch(handleReject)
+    return res.address
   },
   network: async () => {
-    if (!window.martian) return Promise.reject(error)
-    return window.martian.network()
+    if (!window.martian) return Promise.reject(ERRORS.NOT_INSTALLED)
+    return window.martian.network().catch(handleReject)
   },
   chainId,
   isConnected: () => {
-    if (!window.martian) return Promise.reject(error)
-    return window.martian.isConnected()
+    if (!window.martian) return Promise.reject(ERRORS.NOT_INSTALLED)
+    return window.martian.isConnected().catch(handleReject)
   },
   disconnect: async () => {
-    if (!window.martian) return Promise.reject(error)
-    return window.martian.disconnect()
+    if (!window.martian) return Promise.reject(ERRORS.NOT_INSTALLED)
+    return window.martian.disconnect().catch(handleReject)
   },
   signAndSubmitTransaction: async (payload, options) => {
-    if (!window.martian?.address) return Promise.reject(error)
-    const tx = await window.martian.generateTransaction(
-      window.martian.address,
-      { ...payload, arguments: payload.arguments.map(toStringRecursive) },
-      options,
-    )
-    return window.martian.signAndSubmitTransaction(tx)
+    if (!window.martian?.address) return Promise.reject(ERRORS.NOT_INSTALLED)
+    const tx = await window.martian
+      .generateTransaction(
+        window.martian.address,
+        { ...payload, arguments: payload.arguments.map(toStringRecursive) },
+        options,
+      )
+      .catch(handleReject)
+    return window.martian.signAndSubmitTransaction(tx).catch(handleReject)
   },
   onAccountChanged: (listener) => {
-    if (!window.martian) throw new Error(error)
+    if (!window.martian) throw new Error(ERRORS.NOT_INSTALLED)
     return window.martian.onAccountChange(listener)
   },
   onNetworkChanged: (listener) => {
-    if (!window.martian) throw new Error(error)
+    if (!window.martian) throw new Error(ERRORS.NOT_INSTALLED)
     return window.martian.onNetworkChange(listener)
   },
   onChainChanged: (listener) => {
-    if (!window.martian) throw new Error(error)
+    if (!window.martian) throw new Error(ERRORS.NOT_INSTALLED)
     return window.martian.onNetworkChange(() => chainId().then(listener))
   },
 }
 
-const error = 'Martian wallet not installed'
+const handleReject = (e: any) => {
+  if (e === 'Unauthorized') return Promise.reject(ERRORS.NOT_CONNECTED)
+  if (e === 'User rejected the request') return Promise.reject(ERRORS.CANCELLED)
+  return Promise.reject(e)
+}

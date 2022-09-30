@@ -11,6 +11,7 @@ import {
   WalletType,
 } from './wallets'
 
+export { ERRORS } from './utils/errors'
 export {
   SUPPORTED_WALLETS,
   isSupportedWalletType,
