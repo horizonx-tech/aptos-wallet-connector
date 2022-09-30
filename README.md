@@ -70,7 +70,7 @@ See [code example](https://github.com/horizonx-tech/aptos-module-explorer/blob/m
 | account                  | :white_check_mark:          | :white_check_mark:            | :white_check_mark:                    | :white_check_mark:                |
 | network                  | :white_check_mark:          | :white_check_mark:            | :white_check_mark:                    | :white_check_mark:                |
 | chainId                  | :heavy_minus_sign:          | :white_check_mark:            | :white_check_mark:                    | :white_check_mark:                |
-| isConnected              | :heavy_minus_sign:          | :white_check_mark:            | :white_check_mark:                    | :white_check_mark:                |
+| isConnected              | :white_check_mark:          | :white_check_mark:            | :white_check_mark:                    | :white_check_mark:                |
 | disconnect               | :white_check_mark:          | :white_check_mark:            | :white_check_mark:                    | :white_check_mark:                |
 | signAndSubmitTransaction | :white_check_mark:          | :white_check_mark:            | :white_check_mark:                    | :white_check_mark:                |
 | onAccountChanged         | :white_check_mark:          | :heavy_minus_sign:            | :white_check_mark:                    | :white_check_mark:                |
