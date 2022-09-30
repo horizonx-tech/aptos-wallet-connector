@@ -4,18 +4,17 @@
 
 Provides a common interface for aptos wallets
 
-| Function                 | Description                                         | Arguments                                                                   |
-| ------------------------ | --------------------------------------------------- | --------------------------------------------------------------------------- |
-| connect                  | connect wallet                                      | -                                                                           |
-| account                  | returns current account                             | -                                                                           |
-| network                  | returns current network name                        | -                                                                           |
-| chainId                  | returns current chainId                             | -                                                                           |
-| isConnected              | returns connected or not                            | -                                                                           |
-| disconnect               | disconnect wallet                                   | -                                                                           |
-| signAndSubmitTransaction | call connected wallet to sign and submit transction | `payload`: Transaction Payload<br> (optional) `options`: TransactionOptions |
-| onAccountChanged         | add listener callback on account changed            | `listener`: (address: string \| undefined) => void                          |
-| onNetworkChanged         | add listener callback on network changed            | `listener`: (network: string) => void                                       |
-| onChainChanged           | add listener callback on chain changed              | `listener`: (chainId: number) => void                                       |
+| Function                 | Description                                         | Arguments                                                                                    |
+| ------------------------ | --------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| connect                  | connect wallet                                      | -                                                                                            |
+| account                  | returns current account                             | -                                                                                            |
+| network                  | returns current network name                        | -                                                                                            |
+| chainId                  | returns current chainId                             | -                                                                                            |
+| isConnected              | returns connected or not                            | -                                                                                            |
+| disconnect               | disconnect wallet                                   | -                                                                                            |
+| signAndSubmitTransaction | call connected wallet to sign and submit transction | `payload`: Transaction Payload<br> (optional) `options`: TransactionOptions                  |
+| onAccountChanged         | add listener callback on account changed            | `listener`: (address: string \| undefined) => VoidFunction (removeListener)                  |
+| onNetworkChanged         | add listener callback on network changed            | `listener`: (payload: { network: string, chainId?: number}) => VoidFunction (removeListener) |
 
 ## Installation
 
@@ -75,4 +74,3 @@ See [code example](https://github.com/horizonx-tech/aptos-module-explorer/blob/m
 | signAndSubmitTransaction | :white_check_mark:          | :white_check_mark:            | :white_check_mark:                    | :white_check_mark:                |
 | onAccountChanged         | :white_check_mark:          | :heavy_minus_sign:            | :white_check_mark:                    | :white_check_mark:                |
 | onNetworkChanged         | :white_check_mark:          | :heavy_minus_sign:            | :white_check_mark:                    | :white_check_mark:                |
-| onChainChanged           | :heavy_minus_sign:          | :heavy_minus_sign:            | :white_check_mark:                    | :white_check_mark:                |
