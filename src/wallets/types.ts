@@ -4,6 +4,7 @@ export type WalletConnector = <T>() => Promise<WalletInterface<T> | undefined>
 
 export type WalletInterface<T = string> = {
   type: T
+  connect: () => Promise<Types.Address | undefined>
   account: () => Promise<Types.Address | undefined>
   network: () => Promise<string>
   chainId: () => Promise<number>

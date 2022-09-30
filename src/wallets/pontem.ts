@@ -2,8 +2,7 @@ import { WalletInterface } from './types'
 import { toStringRecursive } from './utils'
 
 export const connect = async () => {
-  if (!window.pontem) return Promise.reject(error)
-  const pontemAccount = await window.pontem.account()
+  const pontemAccount = await wallet.connect()
   if (!pontemAccount) return
   return wallet
 }
@@ -14,6 +13,10 @@ const chainId = async () => {
 }
 const wallet: WalletInterface<'pontem'> = {
   type: 'pontem',
+  connect: () => {
+    if (!window.pontem) return Promise.reject(error)
+    return window.pontem.connect()
+  },
   account: async () => {
     if (!window.pontem) return Promise.reject(error)
     return window.pontem.account()

@@ -2,21 +2,26 @@ import { WalletInterface } from './types'
 import { toStringRecursive } from './utils'
 
 export const connect = async () => {
-  if (!window.fewcha) return Promise.reject(error)
-  const fewchaAccount = await window.fewcha.account()
+  const fewchaAccount = wallet.connect()
   if (!fewchaAccount) return
   return wallet
 }
 
+const account = async () => {
+  if (!window.fewcha) return Promise.reject(error)
+  const {
+    data: { address },
+  } = await window.fewcha.account()
+  return address
+}
 const wallet: WalletInterface<'fewcha'> = {
   type: 'fewcha',
-  account: async () => {
+  connect: async () => {
     if (!window.fewcha) return Promise.reject(error)
-    const {
-      data: { address },
-    } = await window.fewcha.account()
-    return address
+    await window.fewcha.connect()
+    return account()
   },
+  account,
   network: async () => {
     if (!window.fewcha) return Promise.reject(error)
     const res = await window.fewcha.getNetwork()

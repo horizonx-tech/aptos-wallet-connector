@@ -2,8 +2,7 @@ import { WalletInterface } from './types'
 import { toStringRecursive } from './utils'
 
 export const connect = async () => {
-  if (!window.martian) return Promise.reject(error)
-  const martianRes = await window.martian.connect()
+  const martianRes = await wallet.connect()
   if (!martianRes) return
   return wallet
 }
@@ -15,6 +14,10 @@ const chainId = async () => {
 
 const wallet: WalletInterface<'martian'> = {
   type: 'martian',
+  connect: async () => {
+    if (!window.martian) return Promise.reject(error)
+    return (await window.martian.connect()).address
+  },
   account: async () => {
     if (!window.martian) return Promise.reject(error)
     return (await window.martian.account()).address

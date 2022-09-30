@@ -1,7 +1,7 @@
 import { BCS, MaybeHexString, TokenTypes, Types as Gen } from 'aptos'
 
 interface FewchaWalletProvider {
-  connect(): Promise<Response<PublicAccount>>
+  connect(): Promise<Response<PublicAccount | undefined>>
   disconnect(): Promise<Response<boolean>>
   isConnected(): Promise<Response<boolean>>
 

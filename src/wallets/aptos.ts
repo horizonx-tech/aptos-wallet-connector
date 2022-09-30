@@ -2,14 +2,17 @@ import { WalletInterface } from './types'
 import { toStringRecursive } from './utils'
 
 export const connect = async () => {
-  if (!window.aptos) return Promise.reject(error)
-  const aptosRes = await window.aptos.connect()
+  const aptosRes = await wallet.connect()
   if (!aptosRes) return
   return wallet
 }
 
 const wallet: WalletInterface<'aptos'> = {
   type: 'aptos',
+  connect: async () => {
+    if (!window.aptos) return Promise.reject(error)
+    return (await window.aptos.connect()).address
+  },
   account: async () => {
     if (!window.aptos) return Promise.reject(error)
     return (await window.aptos.account()).address
