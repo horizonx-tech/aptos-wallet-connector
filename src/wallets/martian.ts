@@ -52,15 +52,24 @@ const wallet: WalletInterface<'martian'> = {
   },
   onAccountChanged: (listener) => {
     if (!window.martian) throw new Error(ERRORS.NOT_INSTALLED)
-    return window.martian.onAccountChange(listener)
+    window.martian.onAccountChange(listener)
+    return () => {
+      if (!window.martian) return
+      delete window.martian.eventListenerMap.changeAddress
+    }
   },
   onNetworkChanged: (listener) => {
     if (!window.martian) throw new Error(ERRORS.NOT_INSTALLED)
-    return window.martian.onNetworkChange(listener)
-  },
-  onChainChanged: (listener) => {
-    if (!window.martian) throw new Error(ERRORS.NOT_INSTALLED)
-    return window.martian.onNetworkChange(() => chainId().then(listener))
+    window.martian.onNetworkChange(async (network) =>
+      listener({
+        network,
+        chainId: (await window.martian?.getChainId())?.chainId,
+      }),
+    )
+    return () => {
+      if (!window.martian) return
+      delete window.martian.eventListenerMap.networkChange
+    }
   },
 }
 

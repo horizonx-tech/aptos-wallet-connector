@@ -22,6 +22,9 @@ interface PetraWalletProvider {
     (event: 'disconnect', listener: VoidFunction): void
     (event: 'networkChanged', listener: (params: string) => void): void
   }
+  eventListenerMap: Partial<
+    Record<'accountChanged' | 'disconnect' | 'networkChanged', Function>
+  >
 }
 
 interface Account {

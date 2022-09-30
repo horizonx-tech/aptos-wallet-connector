@@ -48,10 +48,18 @@ const wallet: WalletInterface<'aptos'> = {
     window.aptos.on('accountChanged', (params) =>
       listener((params as { address?: string }).address),
     )
+    return () => {
+      if (!window.aptos) return
+      delete window.aptos.eventListenerMap.accountChanged
+    }
   },
   onNetworkChanged: (listener) => {
     if (!window.aptos) throw new Error(ERRORS.NOT_INSTALLED)
-    window.aptos.on('networkChanged', listener)
+    window.aptos.on('networkChanged', (network) => listener({ network }))
+    return () => {
+      if (!window.aptos) return
+      delete window.aptos.eventListenerMap.networkChanged
+    }
   },
 }
 

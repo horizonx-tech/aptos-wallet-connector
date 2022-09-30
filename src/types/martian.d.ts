@@ -74,6 +74,7 @@ interface MartianWalletProvider {
   ) => Promise<Types.HashValue>
   onAccountChange: (listner: (address: string) => void) => void
   onNetworkChange: (listner: (name: string) => void) => void
+  eventListenerMap: Partial<Record<'changeAddress' | 'networkChange', Function>>
 }
 
 type SignGenericTransactionResponse = {

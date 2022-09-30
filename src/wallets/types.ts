@@ -16,7 +16,8 @@ export type WalletInterface<T = string> = {
   ) => Promise<Types.HashValue>
   onAccountChanged?: (
     listener: (address: Types.Address | undefined) => void,
-  ) => VoidFunction | void
-  onNetworkChanged?: (listener: (network: string) => void) => void
-  onChainChanged?: (listener: (chain: number) => void) => void
+  ) => VoidFunction
+  onNetworkChanged?: (
+    listener: (payload: { network: string; chainId?: number }) => void,
+  ) => VoidFunction
 }
