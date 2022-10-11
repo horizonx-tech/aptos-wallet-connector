@@ -22,7 +22,8 @@ const wallet: WalletInterface<'aptos'> = {
   },
   network: async () => {
     if (!window.aptos) return Promise.reject(ERRORS.NOT_INSTALLED)
-    return window.aptos.network().catch(handleReject)
+    const res = await window.aptos.network().catch(handleReject)
+    return res.networkName
   },
   chainId: () => Promise.reject('Not Supported.'),
   isConnected: () => {
@@ -45,9 +46,7 @@ const wallet: WalletInterface<'aptos'> = {
   },
   onAccountChanged: (listener) => {
     if (!window.aptos) throw new Error(ERRORS.NOT_INSTALLED)
-    window.aptos.on('accountChanged', (params) =>
-      listener((params as { address?: string }).address),
-    )
+    window.aptos.onAccountChange(listener)
     return () => {
       if (!window.aptos) return
       delete window.aptos.eventListenerMap.accountChanged
@@ -55,7 +54,7 @@ const wallet: WalletInterface<'aptos'> = {
   },
   onNetworkChanged: (listener) => {
     if (!window.aptos) throw new Error(ERRORS.NOT_INSTALLED)
-    window.aptos.on('networkChanged', (network) => listener({ network }))
+    window.aptos.onNetworkChange((network) => listener({ network }))
     return () => {
       if (!window.aptos) return
       delete window.aptos.eventListenerMap.networkChanged

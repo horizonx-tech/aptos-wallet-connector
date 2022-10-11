@@ -4,7 +4,7 @@ interface PetraWalletProvider {
   connect: () => Promise<Account>
   isConnected: () => Promise<boolean>
   account: () => Promise<Account>
-  network: () => Promise<string>
+  network: () => Promise<{ networkName: string }>
   signMessage: (message: string) => Promise<{ signedMessages: string }>
   signTransaction: (
     transaction: Types.EntryFunctionPayload,
@@ -16,9 +16,9 @@ interface PetraWalletProvider {
   disconnect: () => Promise<{}>
   onAccountChange: (listener: (params: string) => void) => void
   onDisconnect: (listener: VoidFunction) => void
-  onNetworkChange: (listener: (params: Account | {}) => void) => void
+  onNetworkChange: (listener: (params: string) => void) => void
   on: {
-    (event: 'accountChanged', listener: (params: Account | {}) => void): void
+    (event: 'accountChanged', listener: (params: string) => void): void
     (event: 'disconnect', listener: VoidFunction): void
     (event: 'networkChanged', listener: (params: string) => void): void
   }

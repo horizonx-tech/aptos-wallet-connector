@@ -22,8 +22,12 @@ interface PontemWalletProvider {
   onAccountChange: (
     listner: (address: string | undefined) => void,
   ) => VoidFunction
-  onChangeNetwork: (listner: (network: string) => void) => VoidFunction
-  onNetworkChange: (listner: (network: string) => void) => VoidFunction
+  onChangeNetwork: (
+    listner: (network: { name: string; api: string; chainId: string }) => void,
+  ) => VoidFunction
+  onNetworkChange: (
+    listner: (network: { name: string; api: string; chainId: string }) => void,
+  ) => VoidFunction
 }
 
 interface TransactionResponse {

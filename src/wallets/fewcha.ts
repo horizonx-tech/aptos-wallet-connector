@@ -55,13 +55,13 @@ const wallet: WalletInterface<'fewcha'> = {
       )
     if (genTxStatus !== 200) return handleError(genTxStatus)
     const { data, status } = await window.fewcha.signAndSubmitTransaction(tx)
-    if (status !== 200) return handleError(genTxStatus)
+    if (status !== 200) return handleError(status, data)
     return data
   },
 }
 
-const handleError = (status: number) => {
+const handleError = (status: number, data?: any) => {
   if (status === 403) return Promise.reject(ERRORS.NOT_CONNECTED)
   if (status === 401) return Promise.reject(ERRORS.CANCELLED)
-  return Promise.reject(status)
+  return Promise.reject(data || status)
 }

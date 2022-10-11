@@ -53,9 +53,11 @@ const wallet: WalletInterface<'pontem'> = {
   },
   onNetworkChanged: (listener) => {
     if (!window.pontem) throw new Error(ERRORS.NOT_INSTALLED)
-    return window.pontem.onChangeNetwork(async (network) => {
-      const chainId = await window.pontem?.chainId()
-      listener({ network, chainId: chainId != null ? +chainId : undefined })
+    return window.pontem.onChangeNetwork(async ({ name, chainId }) => {
+      listener({
+        network: name,
+        chainId: chainId != null ? +chainId : undefined,
+      })
     })
   },
 }
