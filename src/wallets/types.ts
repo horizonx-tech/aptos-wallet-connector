@@ -11,7 +11,7 @@ export type WalletInterface<T = string> = {
   isConnected: () => Promise<boolean>
   disconnect: () => Promise<any>
   signAndSubmitTransaction: (
-    payload: Types.EntryFunctionPayload,
+    payload: Types.TransactionPayload_EntryFunctionPayload,
     options?: Partial<Types.SubmitTransactionRequest>,
   ) => Promise<Types.HashValue>
   onAccountChanged?: (
