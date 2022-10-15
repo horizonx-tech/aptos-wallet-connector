@@ -5,14 +5,14 @@
     "aptos",
     "wallet"
   ],
-  "version": "0.10.0",
+  "version": "0.10.1",
   "author": "HorizonX",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/horizonx-tech/aptos-wallet-connector.git"
   },
-  "homepage": "https://github.com/horizonx-tech/aptos-wallet-connector#readme",
+  "homepage": "https://leizd.com/devcentral",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
