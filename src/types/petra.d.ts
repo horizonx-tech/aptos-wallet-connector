@@ -14,7 +14,7 @@ interface PetraWalletProvider {
     options?: Partial<Types.SubmitTransactionRequest>,
   ) => Promise<Types.PendingTransaction>
   disconnect: () => Promise<{}>
-  onAccountChange: (listener: (params: string) => void) => void
+  onAccountChange: (listener: (params: Account | {}) => void) => void
   onDisconnect: (listener: VoidFunction) => void
   onNetworkChange: (listener: (params: string) => void) => void
   on: {

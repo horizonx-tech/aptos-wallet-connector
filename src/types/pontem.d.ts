@@ -1,7 +1,9 @@
 import { Types } from 'aptos'
 
 interface PontemWalletProvider {
-  connect: () => Promise<Types.Address>
+  connect: () => Promise<
+    { address: Types.Address; publicKey: Types.HexEncodedBytes } | undefined
+  >
   disconnect: () => Promise<void>
   account: () => Promise<Types.Address>
   network: () => Promise<{

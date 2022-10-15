@@ -15,9 +15,10 @@ const chainId = async () => {
 }
 const wallet: WalletInterface<'pontem'> = {
   type: 'pontem',
-  connect: () => {
+  connect: async () => {
     if (!window.pontem) return Promise.reject(ERRORS.NOT_INSTALLED)
-    return window.pontem.connect().catch(handleReject)
+    const res = await window.pontem.connect().catch(handleReject)
+    return res?.address
   },
   account: async () => {
     if (!window.pontem) return Promise.reject(ERRORS.NOT_INSTALLED)

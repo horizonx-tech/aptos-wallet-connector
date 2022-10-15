@@ -64,7 +64,7 @@ See [code example](https://github.com/horizonx-tech/aptos-module-explorer/blob/m
 
 |                          | [Petra](https://petra.app/) | [Fewcha](https://fewcha.app/) | [Martian](https://martianwallet.xyz/) | [Pontem](https://pontem.network/) |
 | ------------------------ | --------------------------- | ----------------------------- | ------------------------------------- | --------------------------------- |
-| version                  | 1.0.1                       | 0.4.5                         | 1.0.0                                 | 2.0.3                             |
+| version                  | 1.0.2                       | 0.4.6                         | 1.0.2                                 | 2.0.4                             |
 | connect                  | :white_check_mark:          | :white_check_mark:            | :white_check_mark:                    | :white_check_mark:                |
 | account                  | :white_check_mark:          | :white_check_mark:            | :white_check_mark:                    | :white_check_mark:                |
 | network                  | :white_check_mark:          | :white_check_mark:            | :white_check_mark:                    | :white_check_mark:                |

@@ -46,7 +46,9 @@ const wallet: WalletInterface<'aptos'> = {
   },
   onAccountChanged: (listener) => {
     if (!window.aptos) throw new Error(ERRORS.NOT_INSTALLED)
-    window.aptos.onAccountChange(listener)
+    window.aptos.onAccountChange((account) =>
+      listener((account as { address?: string }).address),
+    )
     return () => {
       if (!window.aptos) return
       delete window.aptos.eventListenerMap.accountChanged
