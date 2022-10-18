@@ -12,18 +12,10 @@ import {
 } from './wallets'
 
 export { ERRORS } from './utils/errors'
-export {
-  SUPPORTED_WALLETS,
-  isSupportedWalletType,
-  WalletType,
-  WalletInterface,
-  WalletConnector,
-}
+export { SUPPORTED_WALLETS, isSupportedWalletType, WalletType, WalletInterface }
 
-export const connect = async (
-  type: WalletType,
-): Promise<WalletInterface<WalletType> | undefined> => {
-  const wallet = await connectWallet(type)
+export const connect: WalletConnector = async (type: any, provider?: any) => {
+  const wallet = await connectWallet(type, provider)
   if (wallet) setLastConnectedWalletType(type)
   return wallet
 }

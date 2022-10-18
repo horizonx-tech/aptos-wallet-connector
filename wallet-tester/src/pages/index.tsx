@@ -52,9 +52,10 @@ const Home: NextPage = () => {
           <div>
             <h2>Interface</h2>
             <button
-              onClick={() =>
-                window.navigator.clipboard.writeText(toSnapshot(wallet.type))
-              }
+              onClick={() => {
+                const str = toSnapshot(wallet.type)
+                if (str) window.navigator.clipboard.writeText(str)
+              }}
             >
               Copy
             </button>

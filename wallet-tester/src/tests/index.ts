@@ -12,6 +12,16 @@ export type TestResults = Partial<
   Record<TestCase, { result?: any; success: boolean }>
 >
 
+const connectWalletWithProvider = async (
+  type: WalletType,
+): Promise<WalletInterface | undefined> => {
+  if (type === 'blocto') {
+    const { default: BloctoSDK } = await import('@blocto/sdk')
+    return connect(type, new BloctoSDK({ aptos: { chainId: 2 } }).aptos!)
+  }
+  return connect(type)
+}
+
 export const useTests = () => {
   const [type, setType] = useState<WalletType>()
   const [lastType, setLastType] = useState<WalletType>()
@@ -19,11 +29,12 @@ export const useTests = () => {
   const [_, forceUpdate] = useReducer((x) => x + 1, 0)
 
   const results = useRef<TestResults>({})
+
   const connectWallet = async (type: WalletType): Promise<WalletInterface> => {
     setWallet(undefined)
     setType(type)
     try {
-      const res = await connect(type)
+      const res = await connectWalletWithProvider(type)
       if (!res) throw new Error('Failed to connect wallet.')
       results.current = initialize(res)
       setWallet(res)

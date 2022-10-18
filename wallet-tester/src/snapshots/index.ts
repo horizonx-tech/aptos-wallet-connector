@@ -8,6 +8,7 @@ import { WalletSnapshot } from './types'
 export const toSnapshot = (type: string) => {
   // @ts-ignore
   const wallet = window[type]
+  if (!wallet) return
   const prototypeObj = Object.getPrototypeOf(wallet)
   const prototype = Object.getOwnPropertyNames(prototypeObj).reduce(
     (res, name) => ({
@@ -21,7 +22,7 @@ export const toSnapshot = (type: string) => {
 export const getSnapshot = (type: string) =>
   SNAPSHOTS[type as WalletType]?.snapshot
 
-const SNAPSHOTS: Record<WalletType, WalletSnapshot> = {
+const SNAPSHOTS: Partial<Record<WalletType, WalletSnapshot>> = {
   aptos: APTOS_SNAPSHOT,
   martian: MARTIAN_SNAPSHOT,
   pontem: PONTEM_SNAPSHOT,
