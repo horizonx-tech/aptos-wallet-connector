@@ -2,7 +2,7 @@
 
 ## Detail
 
-Provides a common interface for aptos wallets
+Provides a common interface for aptos wallets in a minimal package.
 
 | Function                 | Description                                         | Arguments                                                                                    |
 | ------------------------ | --------------------------------------------------- | -------------------------------------------------------------------------------------------- |
@@ -28,24 +28,51 @@ or
 npm install @horizonx/aptos-wallet-connector
 ```
 
+<details>
+<summary>Some wallets require additional dependencies.</summary>
+
+- Blocto
+  
+  Dependencies:
+  ```
+  @blocto/sdk
+  ```
+  Example:
+  ```typescript
+  import BloctoSDK from '@blocto/sdk'
+  import { connect, WalletInterface, WalletType } from '@horizonx/aptos-wallet-connector'
+
+  const walletClient: WalletInterface = await connect('blcto', new BloctoSDK({ aptos: { chainId: 1 } }).aptos!)
+  ```
+
+</details>
+
+<br>
+
 ## How to Use
 
 ```typescript
-import { connect, WalletInterface, WalletType } from 'aptos-wallet-connector'
+import { connect, connectWalletWithProvider, WalletInterface, WalletType } from '@horizonx/aptos-wallet-connector'
 
 const type: WalletType = 'aptos' // 'aptos'(petra) | 'fewcha' | 'martian' | 'pontem'
 const walletClient: WalletInterface = await connect(type)
+
+// If an external provider is required, it must be passed as the second argument.
+const type: WalletType = 'blocto' // 'blocto'
+const walletClient: WalletInterface = await connect(type, provider)
 ```
 
 See [code example](https://github.com/horizonx-tech/aptos-module-explorer/blob/main/src/hooks/useWallet.tsx).
 
 ## Features
 
-| Function                | Description                                        | Arguments           |
-| ----------------------- | -------------------------------------------------- | ------------------- |
-| connect                 | connect a wallet                                   | `type`: Wallet Type |
-| isSupportedWalletType   | returns passed arg is supported wallet type or not | `arg`: any          |
-| lastConnectedWalletType | returns last connected wallet type                 | -                   |
+| Function                | Description                                        | Arguments                                             |
+| ----------------------- | -------------------------------------------------- | ----------------------------------------------------- |
+| connect                 | connect a wallet                                   | `type`: Wallet Type<br>`provider?`: External Provider |
+| isSupportedWalletType   | returns passed arg is supported wallet type or not | `arg`: any                                            |
+| lastConnectedWalletType | returns last connected wallet type                 | -                                                     |
+
+<br>
 
 | Constant          | Description                         | type                      |
 | ----------------- | ----------------------------------- | ------------------------- |
@@ -62,15 +89,15 @@ See [code example](https://github.com/horizonx-tech/aptos-module-explorer/blob/m
 
 ## Supported Wallets
 
-|                          | [Petra](https://petra.app/) | [Fewcha](https://fewcha.app/) | [Martian](https://martianwallet.xyz/) | [Pontem](https://pontem.network/) |
-| ------------------------ | --------------------------- | ----------------------------- | ------------------------------------- | --------------------------------- |
-| version                  | 1.0.2                       | 0.4.6                         | 1.0.2                                 | 2.0.4                             |
-| connect                  | :white_check_mark:          | :white_check_mark:            | :white_check_mark:                    | :white_check_mark:                |
-| account                  | :white_check_mark:          | :white_check_mark:            | :white_check_mark:                    | :white_check_mark:                |
-| network                  | :white_check_mark:          | :white_check_mark:            | :white_check_mark:                    | :white_check_mark:                |
-| chainId                  | :heavy_minus_sign:          | :white_check_mark:            | :white_check_mark:                    | :white_check_mark:                |
-| isConnected              | :white_check_mark:          | :white_check_mark:            | :white_check_mark:                    | :white_check_mark:                |
-| disconnect               | :white_check_mark:          | :white_check_mark:            | :white_check_mark:                    | :white_check_mark:                |
-| signAndSubmitTransaction | :white_check_mark:          | :white_check_mark:            | :white_check_mark:                    | :white_check_mark:                |
-| onAccountChanged         | :white_check_mark:          | :heavy_minus_sign:            | :white_check_mark:                    | :white_check_mark:                |
-| onNetworkChanged         | :white_check_mark:          | :heavy_minus_sign:            | :white_check_mark:                    | :white_check_mark:                |
+|                          | [Petra](https://petra.app/) | [Fewcha](https://fewcha.app/) | [Martian](https://martianwallet.xyz/) | [Pontem](https://pontem.network/) | [Blocto](https://portto.com/download) |
+| ------------------------ | --------------------------- | ----------------------------- | ------------------------------------- | --------------------------------- | ------------------------------------- |
+| version                  | 1.0.3                       | 0.4.7                         | 1.1.2                                 | 2.0.5                             | 0.3.9-beta                            |
+| connect                  | :white_check_mark:          | :white_check_mark:            | :white_check_mark:                    | :white_check_mark:                | :white_check_mark:                    |
+| account                  | :white_check_mark:          | :white_check_mark:            | :white_check_mark:                    | :white_check_mark:                | :white_check_mark:                    |
+| network                  | :white_check_mark:          | :white_check_mark:            | :white_check_mark:                    | :white_check_mark:                | :white_check_mark:                    |
+| chainId                  | :heavy_minus_sign:          | :white_check_mark:            | :white_check_mark:                    | :white_check_mark:                | :white_check_mark:                    |
+| isConnected              | :white_check_mark:          | :white_check_mark:            | :white_check_mark:                    | :white_check_mark:                | :white_check_mark:                    |
+| disconnect               | :white_check_mark:          | :white_check_mark:            | :white_check_mark:                    | :white_check_mark:                | :white_check_mark:                    |
+| signAndSubmitTransaction | :white_check_mark:          | :white_check_mark:            | :white_check_mark:                    | :white_check_mark:                | :white_check_mark:                    |
+| onAccountChanged         | :white_check_mark:          | :heavy_minus_sign:            | :white_check_mark:                    | :white_check_mark:                | :heavy_minus_sign:                    |
+| onNetworkChanged         | :white_check_mark:          | :heavy_minus_sign:            | :white_check_mark:                    | :white_check_mark:                | :heavy_minus_sign:                    |
