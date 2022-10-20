@@ -42,7 +42,7 @@ npm install @horizonx/aptos-wallet-connector
   import BloctoSDK from '@blocto/sdk'
   import { connect, WalletInterface, WalletType } from '@horizonx/aptos-wallet-connector'
 
-  const walletClient: WalletInterface = await connect('blcto', new BloctoSDK({ aptos: { chainId: 1 } }).aptos!)
+  const walletClient: WalletInterface = await connect('blocto', new BloctoSDK({ aptos: { chainId: 1 } }).aptos!)
   ```
 
 </details>
