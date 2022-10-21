@@ -22,15 +22,19 @@ export const isSupportedWalletType = (arg: any): arg is WalletType =>
   SUPPORTED_WALLETS.includes(arg as any)
 
 export type WalletConnector = {
-  (type: Exclude<WalletType, 'blocto'>, provider?: undefined): Promise<
-    WalletInterface<WalletType> | undefined
-  >
-  (type: 'blocto', provider: AptosProviderInterface): Promise<
-    WalletInterface<WalletType> | undefined
+  <T extends Exclude<WalletType, 'blocto'>>(
+    type: T,
+    provider?: undefined,
+  ): Promise<WalletInterface<T> | undefined>
+  <T extends 'blocto'>(type: T, provider: AptosProviderInterface): Promise<
+    WalletInterface<T> | undefined
   >
 }
 
-export const connectWallet: WalletConnector = (type, provider?: any) => {
+export const connectWallet: WalletConnector = async (
+  type: any,
+  provider?: any,
+) => {
   switch (type) {
     case 'aptos':
       return connectAptosWallet()
