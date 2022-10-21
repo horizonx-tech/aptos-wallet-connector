@@ -18,13 +18,11 @@ const wallet: WalletInterface<'martian'> = {
   type: 'martian',
   connect: async () => {
     if (!window.martian) return Promise.reject(ERRORS.NOT_INSTALLED)
-    const res = await window.martian.connect().catch(handleReject)
-    return res.address
+    return window.martian.connect().catch(handleReject)
   },
   account: async () => {
     if (!window.martian) return Promise.reject(ERRORS.NOT_INSTALLED)
-    const res = await window.martian.account().catch(handleReject)
-    return res.address
+    return window.martian.account().catch(handleReject)
   },
   network: async () => {
     if (!window.martian) return Promise.reject(ERRORS.NOT_INSTALLED)
@@ -52,7 +50,12 @@ const wallet: WalletInterface<'martian'> = {
   },
   onAccountChanged: (listener) => {
     if (!window.martian) throw new Error(ERRORS.NOT_INSTALLED)
-    window.martian.onAccountChange(listener)
+    window.martian.onAccountChange(async (address) => {
+      if (!window.martian) return listener(undefined)
+      const account = await window.martian.account().catch(handleReject)
+      if (address !== account.address) return
+      listener(account)
+    })
     return () => {
       if (!window.martian) return
       delete window.martian.eventListenerMap.changeAddress

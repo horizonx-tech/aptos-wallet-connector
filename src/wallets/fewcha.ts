@@ -14,13 +14,13 @@ const wallet: WalletInterface<'fewcha'> = {
     if (!window.fewcha) return Promise.reject(ERRORS.NOT_INSTALLED)
     const { data, status } = await window.fewcha.connect()
     if (status !== 200) return handleError(status)
-    return data?.address
+    return data
   },
   account: async () => {
     if (!window.fewcha) return Promise.reject(ERRORS.NOT_INSTALLED)
     const { data, status } = await window.fewcha.account()
     if (status !== 200) return handleError(status)
-    return data?.address
+    return data
   },
   network: async () => {
     if (!window.fewcha) return Promise.reject(ERRORS.NOT_INSTALLED)

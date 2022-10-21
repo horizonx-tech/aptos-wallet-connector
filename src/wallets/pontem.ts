@@ -13,17 +13,21 @@ const chainId = async () => {
   const chainId = await window.pontem.chainId().catch(handleReject)
   return +chainId
 }
+const getAccount = async () => {
+  if (!window.pontem) return Promise.reject(ERRORS.NOT_INSTALLED)
+  const [address, publicKey] = await Promise.all([
+    window.pontem.account().catch(handleReject),
+    window.pontem.publicKey().catch(handleReject),
+  ])
+  return { address, publicKey }
+}
 const wallet: WalletInterface<'pontem'> = {
   type: 'pontem',
   connect: async () => {
     if (!window.pontem) return Promise.reject(ERRORS.NOT_INSTALLED)
-    const res = await window.pontem.connect().catch(handleReject)
-    return res?.address
+    return window.pontem.connect().catch(handleReject)
   },
-  account: async () => {
-    if (!window.pontem) return Promise.reject(ERRORS.NOT_INSTALLED)
-    return window.pontem.account().catch(handleReject)
-  },
+  account: getAccount,
   network: async () => {
     if (!window.pontem) return Promise.reject(ERRORS.NOT_INSTALLED)
     const res = await window.pontem.network().catch(handleReject)
@@ -50,7 +54,11 @@ const wallet: WalletInterface<'pontem'> = {
   },
   onAccountChanged: (listener) => {
     if (!window.pontem) throw new Error(ERRORS.NOT_INSTALLED)
-    return window.pontem.onChangeAccount(listener)
+    return window.pontem.onChangeAccount(async (address) => {
+      const account = await getAccount().catch(() => undefined)
+      if (account && address !== account.address) return
+      return listener(account)
+    })
   },
   onNetworkChanged: (listener) => {
     if (!window.pontem) throw new Error(ERRORS.NOT_INSTALLED)

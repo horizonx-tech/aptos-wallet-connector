@@ -96,7 +96,7 @@ export const testFunctions = async (
       {
         function: '0x1::coin::transfer',
         type_arguments: ['0x1::aptos_coin::AptosCoin'],
-        arguments: [account, 1],
+        arguments: [account?.address, 1],
       },
       { gas_unit_price: '1000' },
     ]),

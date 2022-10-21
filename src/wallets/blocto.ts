@@ -17,15 +17,17 @@ const wallet: WalletInterface<'blocto'> = {
   type: 'blocto',
   connect: async () => {
     if (!provider) return Promise.reject(ERRORS.NOT_CONNECTED)
-    const { address } = await provider.connect()
-    if (!address) return Promise.reject(ERRORS.NOT_CONNECTED)
-    return address
+    const { address, publicKey } = await provider.connect()
+    if (!address || !publicKey || !publicKey.length)
+      return Promise.reject(ERRORS.NOT_CONNECTED)
+    return { address, publicKey: publicKey[0] }
   },
   account: async () => {
     if (!provider) return Promise.reject(ERRORS.NOT_CONNECTED)
-    const { address } = provider.publicAccount
-    if (!address) return Promise.reject(ERRORS.NOT_CONNECTED)
-    return address
+    const { address, publicKey } = provider.publicAccount
+    if (!address || !publicKey || !publicKey.length)
+      return Promise.reject(ERRORS.NOT_CONNECTED)
+    return { address, publicKey: publicKey[0] }
   },
   network: async () => {
     if (!provider) return Promise.reject(ERRORS.NOT_CONNECTED)

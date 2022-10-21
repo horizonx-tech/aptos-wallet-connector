@@ -12,13 +12,11 @@ const wallet: WalletInterface<'aptos'> = {
   type: 'aptos',
   connect: async () => {
     if (!window.aptos) return Promise.reject(ERRORS.NOT_INSTALLED)
-    const res = await window.aptos.connect().catch(handleReject)
-    return res.address
+    return window.aptos.connect().catch(handleReject)
   },
   account: async () => {
     if (!window.aptos) return Promise.reject(ERRORS.NOT_INSTALLED)
-    const res = await window.aptos.account().catch(handleReject)
-    return res.address
+    return window.aptos.account().catch(handleReject)
   },
   network: async () => {
     if (!window.aptos) return Promise.reject(ERRORS.NOT_INSTALLED)
@@ -47,7 +45,7 @@ const wallet: WalletInterface<'aptos'> = {
   onAccountChanged: (listener) => {
     if (!window.aptos) throw new Error(ERRORS.NOT_INSTALLED)
     window.aptos.onAccountChange((account) =>
-      listener((account as { address?: string }).address),
+      listener('address' in account ? account : undefined),
     )
     return () => {
       if (!window.aptos) return
