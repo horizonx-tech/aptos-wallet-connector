@@ -1,3 +1,4 @@
+import BloctoSDK from '@blocto/sdk'
 import {
   connect,
   lastConnectedWalletType,
@@ -5,6 +6,7 @@ import {
   WalletType,
 } from '@horizonx/aptos-wallet-connector'
 import { useEffect, useReducer, useRef, useState } from 'react'
+import { BLOCTO_APP_ID } from '../constants'
 import { getSnapshot, toSnapshot } from '../snapshots'
 
 type TestCase = keyof WalletInterface | 'snapshot'
@@ -16,8 +18,11 @@ const connectWalletWithProvider = async (
   type: WalletType,
 ): Promise<WalletInterface | undefined> => {
   if (type === 'blocto') {
-    const { default: BloctoSDK } = await import('@blocto/sdk')
-    return connect(type, new BloctoSDK({ aptos: { chainId: 2 } }).aptos!)
+    const provider = new BloctoSDK({
+      appId: BLOCTO_APP_ID,
+      aptos: { chainId: 2 },
+    }).aptos!
+    return connect(type, provider)
   }
   return connect(type)
 }
